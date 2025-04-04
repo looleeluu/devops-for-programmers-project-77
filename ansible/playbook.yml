@@ -1,0 +1,78 @@
+- hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: update and upgrade apt packages
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 86400
+      become: true
+      tags: install
+
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+
+  tasks:
+    - name: install docker
+      tags: prepare
+      become: yes
+      pip:
+        name: docker
+        state: present
+
+    - name: Update apt and install Docker packages
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose
+        state: present
+        update_cache: true
+      tags: init
+
+    - name: create .env from template
+      tags: prepare
+      ansible.builtin.template:
+        src: templates/env.j2
+        dest: "{{ env_name }}"
+        mode: "666"
+
+    - name: Pull Redmine image
+      docker_image:
+        name: redmine:5.0
+        source: pull
+
+    - name: create redmine container
+      tags: deploy
+      become: yes
+      docker_container:
+        name: redmine
+        image: redmine:5.0
+        env_file: "{{ env_name }}"
+        ports:
+          - "{{ active_port }}:3000"
+        restart_policy: always
+    - name: Add upmon
+      ansible.builtin.cron:
+        name: "upmon healthcheck"
+        special_time: "daily"
+        job: "curl -m 10 --retry 5 {{ upmon_url }}"
+      become: true
+      tags: monitoring
+
+- hosts: webservers
+  become: yes
+  tags: datadog
+
+  roles:
+    - datadog.datadog
+
+  tasks:
+    - name: start datadog agent
+      service:
+        name: datadog-agent
+        state: restarted
+        enabled: yes

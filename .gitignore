@@ -1,0 +1,10 @@
+terraform/.terraform
+terraform/.terraform.lock.hcl
+terraform/secret.*
+terraform/*.backup
+terraform/*.tfstate
+terrfaform/*.tfstate.*
+terraform/certificate.*
+
+vault.password
+ssh-key.pub

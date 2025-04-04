@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  vars_files:
+    - group_vars/webservers/vault.yml
+  gather_facts: false
+  tasks:
+    - template:
+        src: secret.auto.tfvars.j2
+        dest: "../terraform/secret.auto.tfvars"
+
+    - template:
+        src: secret.backend.tfvars.j2
+        dest: "../terraform/secret.backend.tfvars"
