@@ -75,3 +75,15 @@ variable "db_user" {
   description = "Пользователь базы данных"
   type        = string
 }
+
+variable "cert" {
+  description = "Сертификат ssl"
+  type = string
+  sensitive = true
+}
+
+variable "cert_private_key" {
+  description = "Закрытый ключ ssl"
+  type = string
+  sensitive = true
+}

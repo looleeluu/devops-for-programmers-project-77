@@ -4,7 +4,7 @@ resource "yandex_cm_certificate" "imported-cert" {
   description = "TLS certificate for devops-project.com"
 
   self_managed {
-    certificate = file("./certificate.crt")
-    private_key = file("./certificate.key")
+    certificate = "${var.cert}"
+    private_key = "${var.cert_private_key}"
   }
 }
