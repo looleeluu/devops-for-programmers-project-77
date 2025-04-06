@@ -2,10 +2,8 @@ env_path: ~/.env
 container_name: redmine
 docker_image: redmine:latest
 
-docker_packages:
-  - docker-ce
-  - docker-ce-cli
-  - containerd.io
+pip_install_packages:
+  - name: docker
 
 docker_packages_state: present
 docker_service_manage: false

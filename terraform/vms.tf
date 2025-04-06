@@ -15,6 +15,7 @@ resource "yandex_compute_instance_group" "site-ig" {
       mode = "READ_WRITE"
       initialize_params {
         image_id = "fd82vchjp2kdjiuam29k"
+        size     = 10
       }
     }
 

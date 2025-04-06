@@ -8,31 +8,13 @@
         update_cache: true
         cache_valid_time: 86400
       become: true
-      tags: install
+      tags: prepare
 
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
 
   tasks:
-    - name: install docker
-      tags: prepare
-      become: yes
-      pip:
-        name: docker
-        state: present
-
-    - name: Update apt and install Docker packages
-      apt:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-          - docker-compose
-        state: present
-        update_cache: true
-      tags: init
-
     - name: create .env from template
       tags: prepare
       ansible.builtin.template:
