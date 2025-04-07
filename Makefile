@@ -1,5 +1,7 @@
-start:
+terraform-start:
 	make -C terraform start
+
+ansible-start:
 	make -C ansible start
 
 prepare-terraform:

@@ -11,5 +11,7 @@ https://devops-project.ru
 # Steps
 
 1. `make install` for install requirements
-2. `make start` for deploy app
-3. `make destroy` for destroy yandex cloud infrastructure
+2. `make terrafrom-start` for prepare yandex-cloud infrastructure
+3. set `ansible/inventory.ini` and `ansible
+4. `make ansible-start` for deploy app
+5. `make destroy` for destroy yandex cloud infrastructure

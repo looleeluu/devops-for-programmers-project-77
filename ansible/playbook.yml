@@ -18,8 +18,8 @@
     - name: create .env from template
       tags: prepare
       ansible.builtin.template:
-        src: templates/env.j2
-        dest: "{{ env_name }}"
+        src: env.j2
+        dest: .env
         mode: "666"
 
     - name: Pull Redmine image
@@ -33,7 +33,7 @@
       docker_container:
         name: redmine
         image: redmine:5.0
-        env_file: "{{ env_name }}"
+        env_file: .env
         ports:
           - "{{ active_port }}:3000"
         restart_policy: always

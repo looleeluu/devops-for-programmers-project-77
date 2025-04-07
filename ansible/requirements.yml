@@ -8,8 +8,5 @@ roles:
   - name: datadog.datadog
     version: 4.28.0
 
-  - name: nginxinc.nginx
-    version: 0.25.0
-
 collections:
   - name: community.general

@@ -5,6 +5,7 @@ terraform/*.backup
 terraform/*.tfstate
 terrfaform/*.tfstate.*
 terraform/certificate.*
+terraform/output.json
 
 vault.password
 ssh-key.pub

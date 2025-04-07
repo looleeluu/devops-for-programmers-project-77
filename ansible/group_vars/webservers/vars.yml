@@ -1,4 +1,4 @@
-env_path: ~/.env
+port: 80
 container_name: redmine
 docker_image: redmine:latest
 
@@ -24,6 +24,7 @@ datadog_checks:
     instances:
       - name: Redmine
         url: http://0.0.0.0
+        port: "{{ port }}"
         timeout: 5
         tags:
           - redmine
